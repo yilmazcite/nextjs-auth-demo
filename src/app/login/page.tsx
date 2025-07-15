@@ -1,17 +1,20 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { FormEvent } from 'react'
+
 import { useRouter } from 'next/navigation'
+
+import { useUserInfoStore } from '@/stores/userStore'
 
 export default function Login() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+
+  const [userInfo, setUserInfo] = useUserInfoStore()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
-    if (email && password) {
+    if (userInfo?.email && userInfo?.password && userInfo?.name) {
       router.push('/dashboard')
     }
   }
@@ -23,10 +26,23 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
           <input
+            type="text"
+            placeholder="Name"
+            value={userInfo?.name || ''}
+            onChange={(e) =>
+              setUserInfo((prev) => ({ ...prev, name: e.target.value }))
+            }
+            className="w-full px-4 py-2 border rounded"
+            required
+          />
+
+          <input
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={userInfo?.email || ''}
+            onChange={(e) =>
+              setUserInfo((prev) => ({ ...prev, email: e.target.value }))
+            }
             className="w-full px-4 py-2 border rounded"
             required
           />
@@ -34,8 +50,10 @@ export default function Login() {
           <input
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={userInfo?.password || ''}
+            onChange={(e) =>
+              setUserInfo((prev) => ({ ...prev, password: e.target.value }))
+            }
             className="w-full px-4 py-2 border rounded"
             required
           />
