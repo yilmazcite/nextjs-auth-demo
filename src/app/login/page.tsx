@@ -60,7 +60,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded cursor-pointer"
+            className="w-full bg-blue-500 text-white py-2 rounded cursor-pointer"
           >
             Login
           </button>
