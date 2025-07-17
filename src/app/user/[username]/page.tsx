@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -9,9 +9,8 @@ import { useUserInfoStore } from '@/stores/userStore'
 type Params = {
   username: string
 }
-
-export default function UserPage({ params }: { params: Promise<Params> }) {
-  const { username } = use(params)
+export default function UserPage({ params }: { params: Params }) {
+  const { username } = params
 
   const router = useRouter()
 
